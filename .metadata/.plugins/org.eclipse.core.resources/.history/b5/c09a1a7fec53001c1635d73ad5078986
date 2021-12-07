@@ -1,0 +1,215 @@
+package cn.edu.ldu;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+
+import java.awt.GridBagLayout;
+
+import javax.swing.JLabel;
+
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.Toolkit;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+import cn.edu.ldu.util.Message;
+import cn.edu.ldu.util.Translate;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+@SuppressWarnings("serial")
+public class remeber extends javax.swing.JFrame{
+
+	private JFrame frame;
+	private JTextField textReID;
+	private JTextField textReMail;
+	private JButton btnRemeber;
+	private JLabel rem;
+	private JTextField textRem;
+	private JButton btnRem;
+	private JLabel label;
+	
+	private DatagramSocket RemberSocket;
+	private Message msg;
+	private InetAddress remoteAddr;
+	private int remotePort;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					remeber window = new remeber();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public remeber() {
+		initialize();
+	}
+	public remeber(InetAddress remoteAddr, int remotePort, Message msg) throws UnknownHostException {
+		this();
+		this.setTitle("用户注册");
+		this.remoteAddr = remoteAddr;
+		this.remotePort = remotePort;
+		this.msg = msg;
+	}
+	
+	protected void btnRemActionPerformed(ActionEvent e) {
+		msg.setType("M_Register");
+		msg.setToAddr(remoteAddr); //目标地址
+        msg.setToPort(remotePort); //目标端口
+        msg.setUserId(textReID.getText());
+        msg.setText(textReMail.getText());
+        try {
+	        RemberSocket = new DatagramSocket();
+	        byte[] data=Translate.ObjectToByte(msg); //消息对象序列化
+	        DatagramPacket packet=new DatagramPacket(data,data.length,remoteAddr,remotePort); //定义登录报文
+			RemberSocket.send(packet); //发送登录报文
+	        DatagramPacket backPacket=new DatagramPacket(data,data.length);
+	        RemberSocket.receive(backPacket); 
+	        RemberSocket.setSoTimeout(0);//取消超时时间
+	        Message backMsg=(Message)Translate.ByteToObject(data);
+	      //处理修改结果
+	        if (backMsg.getType().equalsIgnoreCase("M_SUCCESS")) { //登录成功
+	        	JOptionPane.showMessageDialog(null, "账号："+backMsg.getUserId()+"\n", "密码修改成功！",JOptionPane.ERROR_MESSAGE);
+	        }else { //修改失败
+	            JOptionPane.showMessageDialog(null, "账号："+backMsg.getUserId()+"\n", "密码修改失败！",JOptionPane.ERROR_MESSAGE);           
+	        }
+        } catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        LoginUI login = new LoginUI();
+        login.setVisible(true);
+        this.dispose();
+        RemberSocket.close(); //关闭套接字
+    }//GEN-LAST:event_formWindowClosing
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		int x = (Toolkit.getDefaultToolkit().getScreenSize().width - this.getSize().width)/2;
+        int y = (Toolkit.getDefaultToolkit().getScreenSize().height - this.getSize().height)/2;
+        this.setLocation(x, y);
+        this.setSize(400,150);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+		frame = new JFrame();
+		frame.setBounds(100, 100, 356, 216);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		frame.getContentPane().setLayout(gridBagLayout);
+		
+		label = new JLabel("");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.gridwidth = 2;
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 3;
+		gbc_label.gridy = 0;
+		frame.getContentPane().add(label, gbc_label);
+		JLabel reID = new JLabel("\u627E\u56DE\u8D26\u53F7");
+		GridBagConstraints gbc_reID = new GridBagConstraints();
+		gbc_reID.anchor = GridBagConstraints.EAST;
+		gbc_reID.insets = new Insets(0, 0, 5, 5);
+		gbc_reID.gridx = 1;
+		gbc_reID.gridy = 1;
+		frame.getContentPane().add(reID, gbc_reID);
+		
+		textReID = new JTextField();
+		GridBagConstraints gbc_textReID = new GridBagConstraints();
+		gbc_textReID.gridwidth = 3;
+		gbc_textReID.insets = new Insets(0, 0, 5, 5);
+		gbc_textReID.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textReID.gridx = 2;
+		gbc_textReID.gridy = 1;
+		frame.getContentPane().add(textReID, gbc_textReID);
+		textReID.setColumns(10);
+		
+		JLabel reEmail = new JLabel("\u9884\u7559\u90AE\u7BB1");
+		GridBagConstraints gbc_reEmail = new GridBagConstraints();
+		gbc_reEmail.anchor = GridBagConstraints.EAST;
+		gbc_reEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_reEmail.gridx = 1;
+		gbc_reEmail.gridy = 3;
+		frame.getContentPane().add(reEmail, gbc_reEmail);
+		
+		textReMail = new JTextField();
+		GridBagConstraints gbc_textReMail = new GridBagConstraints();
+		gbc_textReMail.gridwidth = 3;
+		gbc_textReMail.insets = new Insets(0, 0, 5, 5);
+		gbc_textReMail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textReMail.gridx = 2;
+		gbc_textReMail.gridy = 3;
+		frame.getContentPane().add(textReMail, gbc_textReMail);
+		textReMail.setColumns(10);
+		
+		btnRem = new JButton("\u83B7\u53D6\u9A8C\u8BC1\u7801");
+		btnRem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GridBagConstraints gbc_btnRem = new GridBagConstraints();
+		gbc_btnRem.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRem.gridx = 5;
+		gbc_btnRem.gridy = 3;
+		frame.getContentPane().add(btnRem, gbc_btnRem);
+		
+		rem = new JLabel("\u9A8C\u8BC1\u7801");
+		GridBagConstraints gbc_rem = new GridBagConstraints();
+		gbc_rem.anchor = GridBagConstraints.EAST;
+		gbc_rem.insets = new Insets(0, 0, 5, 5);
+		gbc_rem.gridx = 1;
+		gbc_rem.gridy = 5;
+		frame.getContentPane().add(rem, gbc_rem);
+		
+		textRem = new JTextField();
+		GridBagConstraints gbc_textRem = new GridBagConstraints();
+		gbc_textRem.gridwidth = 3;
+		gbc_textRem.insets = new Insets(0, 0, 5, 5);
+		gbc_textRem.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textRem.gridx = 2;
+		gbc_textRem.gridy = 5;
+		frame.getContentPane().add(textRem, gbc_textRem);
+		textRem.setColumns(10);
+		
+		btnRemeber = new JButton("\u627E\u56DE\u5BC6\u7801");
+		GridBagConstraints gbc_btnRemeber = new GridBagConstraints();
+		gbc_btnRemeber.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRemeber.gridx = 4;
+		gbc_btnRemeber.gridy = 6;
+		frame.getContentPane().add(btnRemeber, gbc_btnRemeber);
+	}
+
+}

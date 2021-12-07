@@ -1,0 +1,67 @@
+package cn.edu.ldu.util;
+
+import java.io.Serializable;
+import java.net.InetAddress;
+
+/**
+ * Message锛屾秷鎭被锛屽畾涔変細璇濇秷鎭粨鏋勶紝瑙勫畾浼氳瘽鍗忚銆�
+ * @author 钁ｇ浉蹇楋紝鐗堟潈鎵�湁2016--2018锛寀psunny2008@163.com
+ */
+public class Message implements Serializable {
+    private String userId=null; //鐢ㄦ埛id
+    private String password=null; //瀵嗙爜
+    private String type=null; //娑堟伅绫诲瀷锛歁_LOGIN:鐢ㄦ埛鐧诲綍娑堟伅锛汳_SUCCESS:鐧诲綍鎴愬姛锛汳_FAULURE:鐧诲綍澶辫触锛汳_ACK:鏈嶅姟鍣ㄥ鐧诲綍鐢ㄦ埛鐨勫洖搴旀秷鎭紱M_MSG:浼氳瘽娑堟伅锛汳_QUIT:鐢ㄦ埛閫�嚭娑堟伅
+    private String text=null; //娑堟伅浣�
+    private InetAddress toAddr=null; //鐩爣鐢ㄦ埛鍦板潃
+    private int toPort; //鐩爣鐢ㄦ埛绔彛
+    private String targetId=null; //鐩爣鐢ㄦ埛id
+    private String fileType=null;
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public String getText() {
+        return text;
+    }
+    public void setText(String text) {
+        this.text = text;
+    }
+    public InetAddress getToAddr() {
+        return toAddr;
+    }
+    public void setToAddr(InetAddress toAddr) {
+        this.toAddr = toAddr;
+    }
+    public int getToPort() {
+        return toPort;
+    }
+    public void setToPort(int toPort) {
+        this.toPort = toPort;
+    }
+    public String getTargetId() {
+        return targetId;
+    }
+    public void setTargetId(String targetId) {
+        this.targetId = targetId;
+    }   
+    public String getFileType() {
+		return fileType;
+	}
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	} 
+}

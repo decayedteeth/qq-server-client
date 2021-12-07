@@ -1,0 +1,93 @@
+package cn.edu.ldu;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import java.awt.GridBagLayout;
+import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import javax.swing.JTextField;
+import java.awt.Insets;
+import javax.swing.JButton;
+import javax.swing.JList;
+
+public class downFileUI {
+
+	private JFrame frame;
+	private JTextField textFileName;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					downFileUI window = new downFileUI();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public downFileUI() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		frame.getContentPane().setLayout(gridBagLayout);
+		
+		JList fileList = new JList();
+		GridBagConstraints gbc_fileList = new GridBagConstraints();
+		gbc_fileList.gridheight = 5;
+		gbc_fileList.gridwidth = 8;
+		gbc_fileList.insets = new Insets(0, 0, 5, 5);
+		gbc_fileList.fill = GridBagConstraints.BOTH;
+		gbc_fileList.gridx = 1;
+		gbc_fileList.gridy = 1;
+		frame.getContentPane().add(fileList, gbc_fileList);
+		
+		JLabel fileName = new JLabel("New label");
+		GridBagConstraints gbc_fileName = new GridBagConstraints();
+		gbc_fileName.insets = new Insets(0, 0, 0, 5);
+		gbc_fileName.anchor = GridBagConstraints.EAST;
+		gbc_fileName.gridx = 1;
+		gbc_fileName.gridy = 6;
+		frame.getContentPane().add(fileName, gbc_fileName);
+		
+		textFileName = new JTextField();
+		GridBagConstraints gbc_textFileName = new GridBagConstraints();
+		gbc_textFileName.gridwidth = 6;
+		gbc_textFileName.insets = new Insets(0, 0, 0, 5);
+		gbc_textFileName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFileName.gridx = 2;
+		gbc_textFileName.gridy = 6;
+		frame.getContentPane().add(textFileName, gbc_textFileName);
+		textFileName.setColumns(10);
+		
+		JButton btnNewButton = new JButton("New button");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.gridx = 8;
+		gbc_btnNewButton.gridy = 6;
+		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
+	}
+
+}

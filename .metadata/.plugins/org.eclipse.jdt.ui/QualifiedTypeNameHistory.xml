@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.security.Cryptography"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.RegisterUI"/>
+<fullyQualifiedTypeName name="com.jgoodies.forms.layout.ColumnSpec"/>
+<fullyQualifiedTypeName name="java.awt.Label"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.LoginUI"/>
+<fullyQualifiedTypeName name="java.awt.Toolkit"/>
+<fullyQualifiedTypeName name="java.net.InetAddress"/>
+<fullyQualifiedTypeName name="java.net.UnknownHostException"/>
+<fullyQualifiedTypeName name="java.net.DatagramSocket"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.db.tables.MemberManager"/>
+<fullyQualifiedTypeName name="org.omg.CORBA.FREE_MEM"/>
+<fullyQualifiedTypeName name="java.awt.Frame"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="javax.mail.internet.MimeMessage"/>
+<fullyQualifiedTypeName name="javax.mail.internet.InternetAddress"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.sun.mail.util.MailSSLSocketFactory"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.sendQQEmail"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.remeber"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.FileDown"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.net.DatagramPacket"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.ReceiveMessage"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.FileSSender"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.ServerUI"/>
+<fullyQualifiedTypeName name="java.io.FileFilter"/>
+<fullyQualifiedTypeName name="java.io.FilenameFilter"/>
+<fullyQualifiedTypeName name="java.io.DataInputStream"/>
+<fullyQualifiedTypeName name="javax.swing.JFileChooser"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.util.Translate"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.util.Message"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.downFileUI"/>
+<fullyQualifiedTypeName name="cn.edu.ldu.ClientUI"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+</qualifiedTypeNameHistroy>

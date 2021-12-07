@@ -1,0 +1,61 @@
+package cn.edu.ldu;
+
+
+private static final String QQ_EMAIL_HOST="smtp.qq.com";//qq SMTP服务器 地址
+private static final String QQ_EMAIL_PORT="587";//qq SMTP服务器 端口（465这个端口有问题）
+private static final String QQ_EMAIL_FROM="xxxxxxxx@qq.com";//qq 发件人邮箱
+private static final String QQ_EMAIL_PASSWORD_CODE="xxxxxxxxxxxxx";//qq 16位的 授权码
+
+public static  void sendQQEmail(String[] to_address, String title, String content)  {
+    // 创建Properties 类用于记录邮箱的一些属性
+    Properties props = new Properties();
+    // 表示SMTP发送邮件，必须进行身份验证
+    props.put("mail.smtp.auth", "true");
+    //此处填写SMTP服务器
+    props.put("mail.smtp.host",QQ_EMAIL_HOST);
+    //端口号，QQ邮箱给出了两个端口，465这个端口用的有问题，用这个587
+    props.put("mail.smtp.port", QQ_EMAIL_PORT);
+    // 此处填写你的发件人账号
+    props.put("mail.user", QQ_EMAIL_FROM);
+    // 此处的密码就是前面说的16位STMP口令（授权码）
+    props.put("mail.password", QQ_EMAIL_PASSWORD_CODE);
+    // 构建授权信息，用于进行SMTP进行身份验证
+    Authenticator authenticator = new Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+            String userName = props.getProperty("mail.user");
+            String password = props.getProperty("mail.password");
+            return new PasswordAuthentication(userName, password);
+        }
+    };
+    // 使用环境属性和授权信息，创建邮件会话
+    Session mailSession = Session.getInstance(props, authenticator);
+    // 创建邮件消息
+    MimeMessage message = new MimeMessage(mailSession);
+    // 设置发件人
+    try {
+        InternetAddress form = new InternetAddress(props.getProperty("mail.user"));
+        message.setFrom(form);
+        // 设置收件人的邮箱:收件人的邮箱不限于qq邮箱，也可以是163邮箱……
+        if(to_address.length>1){
+            for(String str:to_address){
+                //追加收件人
+                message.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(str,"UTF-8"));
+            }
+        }else{
+            InternetAddress address = new InternetAddress(to_address[0]);
+            message.setRecipient(Message.RecipientType.TO, address);
+        }
+        // 设置邮件标题
+        message.setSubject(title);
+        // 设置邮件的内容体
+        message.setContent(content, "text/html;charset=UTF-8");
+        // 最后当然就是发送邮件啦
+        Transport.send(message);
+    }catch (AddressException a){
+        a.printStackTrace();
+    }catch (MessagingException m){
+        m.printStackTrace();
+    }catch (UnsupportedEncodingException un){
+        un.printStackTrace();
+    }
+}
